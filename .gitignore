@@ -1,0 +1,5 @@
+.idea/
+config.json
+conf/app.ini
+web/public/apidoc
+main
