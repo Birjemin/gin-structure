@@ -2,7 +2,6 @@ package utils
 
 import (
 	"github.com/go-ini/ini"
-	"path/filepath"
 )
 
 type Config struct {
@@ -11,13 +10,8 @@ type Config struct {
 
 var (
 	c = new(Config)
-	//项目根路径
-	appPath string
-	//配置文件路径
-	confPath string
 	//当前选择的配置文件
 	RunMode  string
-	HttpPort string
 )
 
 func init() {
@@ -25,7 +19,6 @@ func init() {
 	// 只读操作增加性能
 	c.conf.BlockMode = false
 	RunMode = c.conf.Section("").Key("runmode").String()
-	HttpPort = ":" + c.conf.Section("").Key("httpport").String()
 }
 
 func String(key string) string {
@@ -50,8 +43,7 @@ func Bool(key string) bool {
 
 func parseConfig() *ini.File {
 	// 载入入口配置文件
-	indexConfPath := filepath.Join(confPath, "./conf/app.ini")
-	conf, err := ini.Load(indexConfPath)
+	conf, err := ini.Load("./conf/app.ini")
 	if err != nil {
 		panic(err)
 	}

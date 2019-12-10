@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"github.com/birjemin/gin-structure/datasource"
 	conf "github.com/birjemin/gin-structure/utils/config"
 	"github.com/birjemin/gin-structure/web/routers"
@@ -15,6 +16,9 @@ import (
 )
 
 func main() {
+	var port = flag.String("port", "8081", "port flag")
+	flag.Parse()
+
 	router := gin.Default()
 	router.Static("/public", "/public")
 	if conf.RunMode == "pro" {
@@ -23,10 +27,10 @@ func main() {
 	routers.SetRouters(router)
 
 	srv := &http.Server{
-		Addr:           conf.HttpPort,
+		Addr:           ":" + *port,
 		Handler:        router,
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
+		ReadTimeout:    20 * time.Second,
+		WriteTimeout:   30 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 
