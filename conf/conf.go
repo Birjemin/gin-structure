@@ -1,4 +1,4 @@
-package utils
+package conf
 
 import (
 	"github.com/go-ini/ini"
@@ -43,7 +43,7 @@ func Bool(key string) bool {
 
 func parseConfig() *ini.File {
 	// 载入入口配置文件
-	conf, err := ini.Load("./conf/app.ini")
+	conf, err := ini.Load("./app.ini")
 	if err != nil {
 		panic(err)
 	}

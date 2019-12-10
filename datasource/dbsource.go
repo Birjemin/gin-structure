@@ -3,7 +3,7 @@ package datasource
 import (
 	"database/sql"
 	"fmt"
-	conf "github.com/birjemin/gin-structure/utils/config"
+	conf2 "github.com/birjemin/gin-structure/conf"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/cast"
@@ -28,11 +28,11 @@ func CloseDb() error {
 
 func init() {
 	path := fmt.Sprintf("%s:%s@(%s:%d)/%s?charset=utf8&parseTime=true",
-		conf.String("mysql.user"),
-		conf.String("mysql.pass"),
-		conf.String("mysql.host"),
-		conf.Int("mysql.port"),
-		conf.String("mysql.db"),
+		conf2.String("mysql.user"),
+		conf2.String("mysql.pass"),
+		conf2.String("mysql.host"),
+		conf2.Int("mysql.port"),
+		conf2.String("mysql.db"),
 	)
 
 	var err error
@@ -41,10 +41,10 @@ func init() {
 		panic(err)
 	}
 	db.SingularTable(true)
-	db.DB().SetConnMaxLifetime(cast.ToDuration(conf.Int("mysql.idletime"))  * time.Second)
-	db.DB().SetMaxIdleConns(conf.Int("mysql.maxidle"))   // 设置最大闲置个数
-	db.DB().SetMaxOpenConns(conf.Int("mysql.maxactive")) // 最大打开的连接数
-	db.SingularTable(true)                               // 表生成结尾不带s
+	db.DB().SetConnMaxLifetime(cast.ToDuration(conf2.Int("mysql.idletime"))  * time.Second)
+	db.DB().SetMaxIdleConns(conf2.Int("mysql.maxidle"))   // 设置最大闲置个数
+	db.DB().SetMaxOpenConns(conf2.Int("mysql.maxactive")) // 最大打开的连接数
+	db.SingularTable(true)                                // 表生成结尾不带s
 	// 是否启用Logger，显示详细日志
-	db.LogMode(conf.Bool("mysql.debug"))
+	db.LogMode(conf2.Bool("mysql.debug"))
 }

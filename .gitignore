@@ -1,5 +1,5 @@
 .idea/
 config.json
-conf/app.ini
+app.ini
 web/public/apidoc
 main
