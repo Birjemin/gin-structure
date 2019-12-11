@@ -15,6 +15,7 @@ type server struct{}
 
 // SayHello implements Hello.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	print("gin-structure")
 	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
