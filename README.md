@@ -20,6 +20,10 @@ protoc --version
 protoc -I . --go_out=plugins=grpc:. grpc/pb/hello.proto
 ```
 
+```
+go run grpc/server.go
+```
+
 ### 部署方式
 
 参考：[https://beego.me/docs/deploy/beego.md](https://beego.me/docs/deploy/beego.md)
