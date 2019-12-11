@@ -2,7 +2,7 @@ package datasource
 
 import (
 	"fmt"
-	conf2 "github.com/birjemin/gin-structure/conf"
+	"github.com/birjemin/gin-structure/conf"
 	"github.com/gomodule/redigo/redis"
 	"github.com/spf13/cast"
 	"time"
@@ -24,22 +24,23 @@ func StatsRedis() redis.PoolStats {
 func CloseRedis() error {
 	if redisPool != nil {
 		return redisPool.Close()
+	} else {
+		return nil
 	}
-	return nil
 }
 
 // 初始化redis
 func init() {
 	redisPool = &redis.Pool{
-		MaxIdle:     conf2.Int("redis.maxidle"),
-		MaxActive:   conf2.Int("redis.maxactive"),
-		IdleTimeout: cast.ToDuration(conf2.Int("redis.idletime")) * time.Second,
+		MaxIdle:     conf.Int("redis.maxidle"),
+		MaxActive:   conf.Int("redis.maxactive"),
+		IdleTimeout: cast.ToDuration(conf.Int("redis.idletime")) * time.Second,
 		Dial: func() (redis.Conn, error) {
 			return redis.Dial(
 				"tcp",
-				fmt.Sprintf("%s:%d", conf2.String("redis.host"), conf2.Int("redis.port")),
-				redis.DialDatabase(conf2.Int("redis.db")),
-				redis.DialPassword(conf2.String("redis.pass")),
+				fmt.Sprintf("%s:%d", conf.String("redis.host"), conf.Int("redis.port")),
+				redis.DialDatabase(conf.Int("redis.db")),
+				redis.DialPassword(conf.String("redis.pass")),
 			)
 		},
 	}

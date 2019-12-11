@@ -19,4 +19,5 @@ func SetRouters(g *gin.Engine) {
 		// 添加 Delete 请求路由
 		book.DELETE("/:id", controllers.DeleteBy)
 	}
+	g.GET("hello", controllers.SayHello)
 }

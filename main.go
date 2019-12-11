@@ -59,6 +59,8 @@ func main() {
 	log.Println("[main]DB Pool Exited...", err)
 	err = datasource.CloseRedis()
 	log.Println("[main]Redis Pool Exited...", err)
+	err = datasource.CloseGRPC()
+	log.Println("[main]GRPC Exited...", err)
 	log.Println("[main]Iris shutdown...")
 	log.Println("[main]Defer, Pool Redis and Db Stats", datasource.StatsRedis(), datasource.StatsDB())
 
