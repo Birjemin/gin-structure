@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"flag"
-	conf2 "github.com/birjemin/gin-structure/conf"
+	"github.com/birjemin/gin-structure/conf"
 	"github.com/birjemin/gin-structure/datasource"
 	"github.com/birjemin/gin-structure/web/middleware"
 	"github.com/birjemin/gin-structure/web/routers"
@@ -24,7 +24,7 @@ func main() {
 	router.Use(middleware.Cors())
 
 	router.Static("/public", "/public")
-	if conf2.RunMode == "pro" {
+	if conf.RunMode == "pro" {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	routers.SetRouters(router)
